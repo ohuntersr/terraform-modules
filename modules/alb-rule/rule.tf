@@ -27,21 +27,6 @@ resource "aws_lb_listener_rule" "alb_rule" {
     }
   }
 
-  # legacy code
-  condition {
-    dynamic host_header {
-      for_each = var.condition_field == "host-header" ? [1] : []
-      content {
-        values = var.condition_values
-      }
-    }
-    dynamic path_pattern {
-      for_each = var.condition_field == "path-pattern" ? [1] : []
-      content {
-        values = var.condition_values
-      }
-    }
-  }
   # more flexible approach
   dynamic condition {
     for_each = var.conditions
